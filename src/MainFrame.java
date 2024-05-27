@@ -25,7 +25,7 @@ public class MainFrame extends JFrame {
         JButton updateButton = new JButton("Update Employee");
         JButton deleteButton = new JButton("Delete Employee");
         JButton createButton = new JButton("Create Employee");
-        JButton leaveButton = new JButton("Request Leave");
+        JButton leaveButton = new JButton("Apply Leave");
 
         Dimension buttonSize = new Dimension(200, 30);
         viewButton.setPreferredSize(buttonSize);
@@ -97,11 +97,13 @@ public class MainFrame extends JFrame {
         int selectedRow = employeeTable.getSelectedRow();
         if (selectedRow >= 0) {
             String employeeNumber = (String) tableModel.getValueAt(selectedRow, 0);
-            new LeaveApplicationFrame(employeeNumber).setVisible(true);
+            String employeeName = (String) tableModel.getValueAt(selectedRow, 1); // Assuming employee name is in the second column
+            new LeaveApplicationFrame(employeeNumber, employeeName).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Please select an employee to apply leave.");
         }
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new LoginFrame(MainFrame::new));
