@@ -5,10 +5,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class CreateEmployeeFrame extends JFrame {
+    // Fields for user input
     private JTextField employeeNumberField, lastNameField, firstNameField, sssNoField, philHealthNoField, tinField, pagibigNoField;
+    // Button to create employee
     private JButton createButton;
+    // Reference to the table model for updating the table
     private EmployeeTableModel tableModel;
 
+    // Constructor
     public CreateEmployeeFrame(EmployeeTableModel tableModel) {
         this.tableModel = tableModel;
         setTitle("Create New Employee");
@@ -17,10 +21,14 @@ public class CreateEmployeeFrame extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
+        // Labels and text fields for each employee attribute
         JLabel employeeNumberLabel = new JLabel("Employee Number:");
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(employeeNumberLabel, gbc);
+        employeeNumberField = new JTextField(15);
+        gbc.gridx = 1;
+        add(employeeNumberField, gbc);
 
         employeeNumberField = new JTextField(15);
         gbc.gridx = 1;
@@ -80,20 +88,24 @@ public class CreateEmployeeFrame extends JFrame {
         gbc.gridx = 1;
         add(pagibigNoField, gbc);
 
+        // Button to create employee
         createButton = new JButton("Create");
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.gridwidth = 2;
         add(createButton, gbc);
 
+        // Action listener for create button
         createButton.addActionListener(e -> createEmployee());
 
-        setSize(400, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setSize(400, 400); // Set frame size
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Close only this frame on exit
+        setLocationRelativeTo(null); // Center the frame on the screen
     }
 
+    // Method to create an employee
     private void createEmployee() {
+        // Retrieve values from text fields
         String employeeNumber = employeeNumberField.getText();
         String lastName = lastNameField.getText();
         String firstName = firstNameField.getText();
@@ -102,22 +114,31 @@ public class CreateEmployeeFrame extends JFrame {
         String tin = tinField.getText();
         String pagibigNo = pagibigNoField.getText();
 
+        // Check if any field is empty
         if (employeeNumber.isEmpty() || lastName.isEmpty() || firstName.isEmpty() || sssNo.isEmpty() || philHealthNo.isEmpty() || tin.isEmpty() || pagibigNo.isEmpty()) {
+            // Display an error message if any field is empty
             JOptionPane.showMessageDialog(this, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("employees.csv", true))) {
+            // Write employee data to CSV file
             writer.write(employeeNumber + "," + lastName + "," + firstName + "," + sssNo + "," + philHealthNo + "," + tin + "," + pagibigNo);
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
+            // Display error message if there's an issue saving the data
             JOptionPane.showMessageDialog(this, "Error saving employee data.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        // Add the new employee to the table model
         tableModel.addEmployee(new String[]{employeeNumber, lastName, firstName, sssNo, philHealthNo, tin, pagibigNo});
+
+        // Display a success message
         JOptionPane.showMessageDialog(this, "Employee created successfully.");
+
+        // Close the frame
         dispose();
     }
 }
