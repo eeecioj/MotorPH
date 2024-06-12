@@ -1,4 +1,5 @@
-import javax.swing.*;
+ import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
@@ -10,32 +11,53 @@ public class LoginFrame extends JFrame {
 
     public LoginFrame(Runnable onSuccess) {
         this.onSuccess = onSuccess;
-        setTitle("Employee Management System - Login");
+        setTitle("MotorPH Portal");
         setLayout(null); // Using absolute layout
-        
+
+        // Set background color
+        getContentPane().setBackground(new Color(0x16326E));
+
+        // Load the icon image and resize it
+        ImageIcon icon = new ImageIcon(getClass().getResource("/resources/motorcycle.png"));
+        Image scaledImage = icon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        JLabel iconLabel = new JLabel(scaledIcon);
+        iconLabel.setBounds(160, 20, 80, 80); // Center the icon at the top
+        add(iconLabel);
+
+        // Label for "MotorPH Portal"
+        JLabel titleLabel = new JLabel("MotorPH Portal", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBounds(100, 110, 200, 30); // Center the title below the icon
+        add(titleLabel);
+
         // Label for username field
         JLabel usernameLabel = new JLabel("Username:");
-        usernameLabel.setBounds(20, 20, 80, 25);
+        usernameLabel.setBounds(100, 160, 80, 30);
+        usernameLabel.setForeground(Color.WHITE);
         add(usernameLabel);
 
         // Text field for entering username
         usernameField = new JTextField();
-        usernameField.setBounds(100, 20, 165, 25);
+        usernameField.setBounds(100, 190, 200, 30);
         add(usernameField);
 
         // Label for password field
         JLabel passwordLabel = new JLabel("Password:");
-        passwordLabel.setBounds(20, 50, 80, 25);
+        passwordLabel.setBounds(100, 230, 80, 30);
+        passwordLabel.setForeground(Color.WHITE);
         add(passwordLabel);
 
         // Text field for entering password
         passwordField = new JPasswordField();
-        passwordField.setBounds(100, 50, 165, 25);
+        passwordField.setBounds(100, 260, 200, 30);
         add(passwordField);
 
         // Button for initiating login process
-        loginButton = new JButton("Login");
-        loginButton.setBounds(100, 80, 80, 25);
+        loginButton = new JButton("LOGIN");
+        loginButton.setFont(new Font("Arial", Font.BOLD, 14)); // Set login text to bold
+        loginButton.setBounds(150, 310, 100, 30);
         add(loginButton);
 
         // Action listener for login button
@@ -57,7 +79,7 @@ public class LoginFrame extends JFrame {
             }
         });
 
-        setSize(300, 150); // Set frame size
+        setSize(400, 400); // Set frame size
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close application on window close
         setLocationRelativeTo(null); // Center the frame on screen
         setVisible(true); // Make the frame visible
