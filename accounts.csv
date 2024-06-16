@@ -1,12 +1,35 @@
-Username,Password
-mgarcia,goodclam70
-alim,poormint78
-bsaquino,hotknot59
-ireyes,greenactor74
-amvillanueva,ambertest30
-bsanjose,firststone78
-ralvaro,fuzzyyak90
-asalcedo,goldfinch12
-fromualdez,murkysoda95
-cmata,supercat16
-sdeleon,limewax65
+Employee #,Last Name,First Name,Role,Username,Password
+1,Garcia,Manuel III,admin,mgarcia,garcia1234
+2,Lim,Antonio,admin,alim,lim1234
+3,Aquino,Bianca Sofia,admin,baquino,aquino1234
+4,Reyes,Isabella,admin,ireyes,reyes1234
+5,Hernandez,Eduard,employee,ehernandez,hernandez1234
+6,Villanueva,Andrea Mae,employee,avillanueva,villanueva1234
+7,San Jose,Brad ,admin,bsanjose,sanjose1234
+8,Romualdez,Alice,employee,aromualdez,romualdez1234
+9,Atienza,Rosie ,employee,ratienza,atienza1234
+10,Alvaro,Roderick,admin,ralvaro,alvaro1234
+11,Salcedo,Anthony,admin,asalcedo,salcedo1234
+12,Lopez,Josie ,employee,jlopez,lopez1234
+13,Farala,Martha,employee,mfarala,farala1234
+14,Martinez,Leila,employee,lmartinez,martinez1234
+15,Romualdez,Fredrick ,admin,fromualdez,romualdez1234
+16,Mata,Christian,admin,cmata,mata1234
+17,De Leon,Selena ,admin,sdeleon,deleon1234
+18,San Jose,Allison ,employee,asanjose,sanjose1234
+19,Rosario,Cydney ,employee,crosario,rosario1234
+20,Bautista,Mark ,employee,mbautista,bautista1234
+21,Lazaro,Darlene ,employee,dlazaro,lazaro1234
+22,Delos Santos,Kolby ,employee,kdelossantos,delossantos1234
+23,Santos,Vella ,employee,vsantos,santos1234
+24,Del Rosario,Tomas,employee,tdelrosario,delrosario1234
+25,Tolentino,Jacklyn ,employee,jtolentino,tolentino1234
+26,Gutierrez,Percival ,employee,pgutierrez,gutierrez1234
+27,Manalaysay,Garfield ,employee,gmanalaysay,manalaysay1234
+28,Villegas,Lizeth ,employee,lvillegas,villegas1234
+29,Ramos,Carol ,employee,cramos,ramos1234
+30,Maceda,Emelia ,employee,emaceda,maceda1234
+31,Aguilar,Delia ,employee,daguilar,aguilar1234
+32,Castro,John Rafael,employee,jcastro,castro1234
+33,Martinez,Carlos Ian,employee,cmartinez,martinez1234
+34,Santos,Beatriz,employee,bsantos,santos1234

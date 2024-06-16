@@ -27,11 +27,10 @@ class DeleteEmployeeAction {
                     found = true;
                 }
             }
-
             if (!found) {
-                JOptionPane.showMessageDialog(null, "Employee not found.");
-            } else {
                 JOptionPane.showMessageDialog(null, "Employee deleted successfully.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Employee not found.");
             }
 
             inputFile.delete();

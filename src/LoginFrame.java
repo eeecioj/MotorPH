@@ -1,13 +1,14 @@
- import javax.swing.*;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
 public class LoginFrame extends JFrame {
-    private JTextField usernameField;   // Text field for entering username
-    private JPasswordField passwordField; // Text field for entering password
-    private JButton loginButton;       // Button to initiate login process
-    private Runnable onSuccess;        // Runnable to execute on successful login
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private JButton loginButton;
+    private Runnable onSuccess;
+    private String userRole;
 
     public LoginFrame(Runnable onSuccess) {
         this.onSuccess = onSuccess;
@@ -56,7 +57,7 @@ public class LoginFrame extends JFrame {
 
         // Button for initiating login process
         loginButton = new JButton("LOGIN");
-        loginButton.setFont(new Font("Arial", Font.BOLD, 14)); // Set login text to bold
+        loginButton.setFont(new Font("Arial", Font.BOLD, 14));
         loginButton.setBounds(150, 310, 100, 30);
         add(loginButton);
 
@@ -65,12 +66,11 @@ public class LoginFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // Check if the entered credentials are valid
-                    if (authenticateUser(usernameField.getText(), new String(passwordField.getPassword()))) {
-                        dispose(); // Close the login frame
-                        onSuccess.run(); // Execute the onSuccess runnable
+                    userRole = authenticateUser(usernameField.getText(), new String(passwordField.getPassword()));
+                    if (userRole != null) {
+                        dispose();
+                        onSuccess.run();
                     } else {
-                        // Show error message for incorrect credentials
                         JOptionPane.showMessageDialog(null, "Incorrect username or password!");
                     }
                 } catch (IOException ex) {
@@ -79,30 +79,42 @@ public class LoginFrame extends JFrame {
             }
         });
 
-        setSize(400, 400); // Set frame size
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close application on window close
-        setLocationRelativeTo(null); // Center the frame on screen
-        setVisible(true); // Make the frame visible
+        setSize(400, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
-    // Method to authenticate user based on credentials
-    private boolean authenticateUser(String username, String password) throws IOException {
-        String csvFile = "accounts.csv"; // CSV file containing username and password
+    private String authenticateUser(String username, String password) throws IOException {
+        String csvFile = "accounts.csv";
         String line;
-        String csvSeparator = ","; // Separator used in the CSV file
+        String csvSeparator = ",";
         
-        // Read the CSV file line by line
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
-                String[] account = line.split(csvSeparator); // Split the line into username and password
-                // Check if the entered username and password match any account in the CSV file
-                if (account[0].equals(username) && account[1].equals(password)) {
-                    return true; // Return true if authentication successful
+                String[] account = line.split(csvSeparator);
+                if (account.length >= 6 && account[4].equals(username) && account[5].equals(password)) {
+                    return account[3];
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false; // Return false if authentication fails
+        return null;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    // Method to load image icon with error handling
+    protected static ImageIcon createImageIcon(String path, String description) {
+        java.net.URL imgURL = LoginFrame.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
     }
 }

@@ -17,27 +17,28 @@ class UpdateEmployeeAction {
              BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
 
             String line;
-            boolean found = false;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";");
                 if (data[0].equals(employeeNumber)) {
-                    bw.write(String.join(";", employeeNumber, lastName, firstName, birthday, address, phoneNumber, sssNo, philHealthNo, tin, pagibigNo, status, position, supervisor, basicSalary, riceSubsidy, phoneAllowance, clothingAllowance, grossSemimonthlyRate, hourlyRate));
-                    bw.newLine();
-                    found = true;
-                } else {
-                    bw.write(line);
-                    bw.newLine();
+                    // Update the line with the new data
+                    line = String.join(";", employeeNumber, lastName, firstName, birthday, address, phoneNumber, sssNo, philHealthNo, tin, pagibigNo, status, position, supervisor, basicSalary, riceSubsidy, phoneAllowance, clothingAllowance, grossSemimonthlyRate, hourlyRate);
                 }
+                // Write the line to the temporary file
+                bw.write(line);
+                bw.newLine();
             }
 
-            if (!found) {
-                JOptionPane.showMessageDialog(null, "Employee not found.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Employee updated successfully.");
-            }
+            // Close the input and output streams
+            br.close();
+            bw.close();
 
+            // Delete the original file
             inputFile.delete();
+
+            // Rename the temporary file to the original file
             tempFile.renameTo(inputFile);
+
+            JOptionPane.showMessageDialog(null, "Employee updated successfully.");
 
         } catch (IOException e) {
             e.printStackTrace();
